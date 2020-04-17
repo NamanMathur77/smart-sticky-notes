@@ -1,0 +1,36 @@
+{% extends 'home/base.html' %}
+{% block content %}
+<div class="container">
+    <h2 class="text-center">{{ object.name }}</h2>
+    {% for i in object.notes_set.all %}
+    <div style="margin-top: 1em; height: 1em">      </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h2>{{i.title}}</h2>
+        </div>
+        <button data-toggle="collapse" data-target="#{{i.id}}" class="btn btn-primary">View Content</button>
+        <div id="{{i.id}}" class="collapse">
+            <p>{{i.text}}</p>
+            <p>{{i.additional_info}}</p>
+        </div>
+        <a href="{% url 'notes-delete' i.id %}" class="btn btn-danger">Delete</a>
+
+    </div>
+
+    {% endfor %}
+    <div style="margin-top: 1em; height: 1em">      </div>
+
+    <h2>Add more notes on the subject</h2>
+    <form action="{% url 'sub-addnotes' object.id %}" method="post" class="form-group">
+        {% csrf_token%}
+        <label>Title</label>
+        <input type="text" name="title" class="form-control" required>
+        <label>Text</label>
+        <textarea type="text" name="note" class="form-control" row=10></textarea>
+        <label>Additional Info</label>
+        <textarea type="text" name="additional" class="form-control" row=10></textarea>
+        <input type="submit" name="Submit" id="" value="submit">
+    </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "home/base.html" %}
+{% block content %}
+    <form action="" method="POST" enctype="multipart/form-data" class="container">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4" ><strong>Create new subject</strong></legend>
+            
+            {% for field in form %}
+                    <div class="has-errors text-danger small" style="margin-top: 1em;">
+                        {{field.errors}}
+                    </div>
+                    <div class="has-errors text-danger small" style="margin-top: 1em;">
+                    </div>
+                    <div style="margin:auto 0%">
+                        <div>
+                        <label for="input" ><strong>{{field.label_tag}}</strong></label>
+                        {{field}}
+                        </div>
+                    </div>
+            {% endfor %}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Post</button>
+        </div>
+    </form>
+{% endblock %}

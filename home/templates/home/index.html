@@ -1,0 +1,36 @@
+{% extends 'home/base.html' %}
+{% block content %}
+    <div class="jumbotron container">
+        <p class="display-4">Hello, World!</p>
+        <p class="lead">Join , make and view your coding notes here</p>
+        {% if user.is_authenticated %}
+            <hr class="my-4">
+            <p>Start working and make the notes</p>
+            <a class="btn btn-primary btn-lg" href="{% url 'post-create' %}" role="button">Make new note</a>
+        {% else %}
+            <hr class="my-4">
+            <p>Login to make the notes</p>
+            <a class="btn btn-primary btn-lg" href="{% url 'login' %}" role="button">Login</a>
+        {% endif %}
+    </div>
+    <div class="container text-center">
+        <div class="row">
+    {% for sub in subs %}
+    {% if sub.author == user %}
+    <div class="col-md-6">
+    <div class="card text-center">
+        <div class="card-body">
+            <h5 class="card-title">{{sub.name}}</h5>
+            <p class=card-text>{{sub.desc}}</p>
+            <a href="{% url 'sub-detail' sub.id %}" class="btn btn-primary">Open</a>
+            <a href="{% url 'sub-delete' sub.id %}" class="btn btn-danger">Delete</a>
+        </div>
+    </div>
+    </div>
+
+    <h2></h2>
+    {% endif %}
+    {% endfor %}
+    </div>
+    </div>
+{% endblock %}
